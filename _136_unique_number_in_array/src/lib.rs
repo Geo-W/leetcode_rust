@@ -1,4 +1,11 @@
-pub fn single_number(nums: Vec<i32>) -> i32 {
+/// Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+/// You must implement a solution with a linear runtime complexity and use only constant extra space.
+pub fn single_number(nums: Vec<i32>) -> i32{
+    nums.iter().fold(0, |cur, next| cur ^ next)
+}
+
+/// this func use hashset extra space, does not comply with the question
+pub fn single_number_with_hash(nums: Vec<i32>) -> i32 {
     use std::collections::HashSet;
     let mut set = HashSet::new();
     for i in nums.iter() {
