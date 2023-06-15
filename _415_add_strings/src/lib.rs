@@ -1,3 +1,5 @@
+///Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+/// You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
 pub fn add_strings(num1: String, num2: String) -> String {
     let (mut n1, mut n2) = (num1.bytes().rev(), num2.bytes().rev());
     let mut carry = 0;
