@@ -1,0 +1,6 @@
+[package]
+name = "_0021_merge_two_sorted_linked_list"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]

@@ -1,0 +1,6 @@
+[package]
+name = "_0035_binary_search_insert"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
