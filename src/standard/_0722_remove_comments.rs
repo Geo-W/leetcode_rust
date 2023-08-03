@@ -1,3 +1,4 @@
+/// Remove C++ comments: string"//" denotes line comment, string "/*" and "*/" constitute block comment.
 pub fn remove_comments(source: Vec<String>) -> Vec<String> {
     let mut long_comment = false;
     let mut ret = vec![];
