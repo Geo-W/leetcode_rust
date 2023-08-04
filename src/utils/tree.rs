@@ -31,7 +31,6 @@ impl TreeNode {
         let mut node_queue = std::collections::VecDeque::new();
         node_queue.push_back(root.clone());
 
-
         for value in list[1..].chunks(2) {
             println!("{:?}", value);
             if let Some(cur) = node_queue.pop_front() {
@@ -39,7 +38,6 @@ impl TreeNode {
                     let left_child = Rc::new(RefCell::new(TreeNode::new(v)));
                     cur.borrow_mut().left = Some(left_child.clone());
                     node_queue.push_back(left_child);
-
 
                     // dbg!(&root);
                 }
@@ -56,4 +54,13 @@ impl TreeNode {
 
         Some(root)
     }
+}
+
+#[macro_export]
+macro_rules! tree_from_vec {
+    ($($element:expr),*) => {
+        TreeNode::from_vec(
+            vec![$(stringify!($element)), *].iter().map(|v| v.parse::<i32>().ok()).collect::<Vec<Option<i32>>>()
+        )
+    };
 }
