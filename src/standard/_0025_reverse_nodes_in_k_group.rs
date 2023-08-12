@@ -1,4 +1,4 @@
-use crate::utils::linked_list::{linked_list_from_vec, ListNode};
+use crate::utils::linked_list::{ListNode};
 
 pub fn reverse_k_group(head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
     let mut ret = ListNode::new(0);

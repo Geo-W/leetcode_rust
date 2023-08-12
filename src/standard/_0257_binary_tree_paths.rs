@@ -11,14 +11,14 @@ pub fn binary_tree_paths(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<String> {
         cur_path.push(v.val);
 
         match (&v.left, &v.right) {
-            (Some(v1), Some(v2)) => {
+            (Some(_), Some(_)) => {
                 tra(&v.left, ret, cur_path.clone());
                 tra(&v.right, ret, cur_path);
             }
-            (Some(v1), None) => {
+            (Some(_), None) => {
                 tra(&v.left, ret, cur_path);
             }
-            (None, Some(v2)) => {
+            (None, Some(_)) => {
                 tra(&v.right, ret, cur_path);
             }
             (None, None) => {
@@ -26,7 +26,7 @@ pub fn binary_tree_paths(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<String> {
             }
         }
     }
-    if let Some(r) = &root {
+    if let Some(_) = &root {
         let mut ret: Vec<String> = vec![];
         tra(&root, &mut ret, vec![]);
         return ret;

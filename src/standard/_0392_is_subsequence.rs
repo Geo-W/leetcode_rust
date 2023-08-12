@@ -14,7 +14,7 @@ pub fn is_subsequence(s: String, t: String) -> bool {
         }
     }
     match tmp {
-        Some(v) => {
+        Some(_) => {
             false
         }
         None => {

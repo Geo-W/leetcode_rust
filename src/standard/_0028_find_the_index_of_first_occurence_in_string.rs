@@ -7,3 +7,16 @@ pub fn str_str(haystack: String, needle: String) -> i32 {
         None => -1
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        assert_eq!(
+            str_str("fdsasd".to_string(), "sas".to_string()),2
+        )
+    }
+
+}

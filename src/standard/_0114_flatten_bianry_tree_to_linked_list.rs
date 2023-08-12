@@ -1,5 +1,4 @@
 use std::cell::RefCell;
-use std::ops::Deref;
 use std::rc::Rc;
 use crate::utils::tree::TreeNode;
 
@@ -7,8 +6,8 @@ use crate::utils::tree::TreeNode;
 /// The "linked list" should use the same TreeNode class where the right child pointer points to the next node in the list and the left child pointer is always null.
 /// The "linked list" should be in the same order as a pre-order traversal of the binary tree.
 pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
-    let mut tree = Rc::new(RefCell::new(TreeNode::new(0)));
-    let mut ptr = tree.clone();
+    let tree = Rc::new(RefCell::new(TreeNode::new(0)));
+    let ptr = tree.clone();
     fn tra(node: &Option<Rc<RefCell<TreeNode>>>, mut ptr: Rc<RefCell<TreeNode>>) -> Rc<RefCell<TreeNode>> {
         if let Some(node) = node {
             let v = node.borrow();

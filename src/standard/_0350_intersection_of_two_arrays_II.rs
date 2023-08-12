@@ -5,7 +5,7 @@
         let mut vec = Vec::new();
         for i in nums1{
             match map.get_mut(&i) {
-                Some(mut v) => {
+                Some(v) => {
                     *v +=1;
                 }
                 None => {
@@ -16,7 +16,7 @@
 
         for i in nums2{
             match map.get_mut(&i) {
-                Some(mut v) => {
+                Some(v) => {
                     if *v > 1 {
                         *v -=1;
                     } else {
