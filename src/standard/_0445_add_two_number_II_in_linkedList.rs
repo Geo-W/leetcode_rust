@@ -1,3 +1,5 @@
+use crate::utils::linked_list::{linked_list_to_vec, ListNode};
+
 /// You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
 /// You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
@@ -59,6 +61,7 @@ pub fn attach(mut ls: Option<Box<ListNode>>, i: i32) -> Option<Box<ListNode>> {
 
 #[cfg(test)]
 mod tests {
+    use crate::utils::linked_list::linked_list_from_vec;
     use super::*;
 
     #[test]
@@ -72,39 +75,4 @@ mod tests {
         assert_eq!(add_two_numbers(linked_list_from_vec(vec![5]), linked_list_from_vec(vec![5])),
                    linked_list_from_vec(vec![1, 0]));
     }
-}
-
-#[derive(PartialEq, Eq, Clone, Debug)]
-pub struct ListNode {
-    pub val: i32,
-    pub next: Option<Box<ListNode>>,
-}
-
-impl ListNode {
-    #[inline]
-    fn new(val: i32) -> Self {
-        ListNode { next: None, val }
-    }
-}
-
-pub fn linked_list_from_vec(vec: Vec<i32>) -> Option<Box<ListNode>> {
-    let mut output = None;
-    for i in vec.iter().rev() {
-        if output.is_none() {
-            output = Some(Box::new(ListNode::new(*i)));
-        } else {
-            output = Some(Box::new(ListNode { val: *i, next: output }));
-        }
-    }
-    output
-}
-
-pub fn linked_list_to_vec(ls: Option<Box<ListNode>>) -> Vec<i32> {
-    let mut vec = Vec::new();
-    let mut ls = ls;
-    while let Some(v) = ls {
-        vec.push(v.val);
-        ls = v.next;
-    }
-    vec
 }
