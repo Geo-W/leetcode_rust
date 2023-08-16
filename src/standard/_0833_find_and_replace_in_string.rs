@@ -1,6 +1,5 @@
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
-use std::ops::Index;
 
 /// for index in indices, if s[index] == sources[index] then replace it with targets[index]
 pub fn find_replace_string(mut s: String, indices: Vec<i32>, sources: Vec<String>, targets: Vec<String>) -> String {

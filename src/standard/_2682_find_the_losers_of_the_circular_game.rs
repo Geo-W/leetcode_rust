@@ -15,7 +15,7 @@ pub fn circular_game_losers(n: i32, k: i32) -> Vec<i32> {
         }
     }
 
-    vec.into_iter().enumerate().filter(|&(idx, i)| i == 0).map(|(idx, i)| (idx+1) as i32).collect()
+    vec.into_iter().enumerate().filter(|&(_idx, i)| i == 0).map(|(idx, _i)| (idx+1) as i32).collect()
 }
 
 #[cfg(test)]
