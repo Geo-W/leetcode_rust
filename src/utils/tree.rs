@@ -18,7 +18,7 @@ impl TreeNode {
         }
     }
 
-    pub fn from_vec(mut list: Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
+    pub fn from_vec(list: Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
         if list.is_empty() {
             return None;
         }

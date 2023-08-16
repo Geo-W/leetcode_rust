@@ -1,7 +1,7 @@
 /// Given an encoded string, return its decoded string.
 /// The encoding rule is: k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. Note that k is guaranteed to be a positive integer.
 pub fn decode_string(s: String) -> String {
-    fn parse_parenthesis(num: &str, char: &mut std::str::Chars) -> String {
+    fn parse_parenthesis(num: usize, char: &mut std::str::Chars) -> String {
         let mut new_num = String::new();
         let mut tmp = String::new();
         while let Some(v) = char.next() {
@@ -10,21 +10,21 @@ pub fn decode_string(s: String) -> String {
                     new_num.push(v);
                 }
                 '[' => {
-                    tmp.push_str(&parse_parenthesis(&new_num, char));
+                    tmp.push_str(&parse_parenthesis(new_num.parse::<usize>().unwrap(), char));
                     new_num.clear();
                 }
                 ']' => {
-                    return tmp.repeat(num.parse::<usize>().unwrap());
+                    return tmp.repeat(num);
                 }
                 _ => {
                     tmp.push(v);
                 }
             }
         }
-        tmp.repeat(num.parse::<usize>().unwrap())
+        tmp.repeat(num)
     }
 
-    parse_parenthesis("1", &mut s.chars())
+    parse_parenthesis(1, &mut s.chars())
 }
 
 #[cfg(test)]
