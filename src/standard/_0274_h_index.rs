@@ -35,4 +35,9 @@ mod tests {
     fn d() {
         assert_eq!(h_index(vec![100]), 1);
     }
+
+    #[test]
+    fn e() {
+        assert_eq!(h_index(vec![0, 0, 0]), 0);
+    }
 }
