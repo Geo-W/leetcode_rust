@@ -1,4 +1,4 @@
-pub fn min_deletion(mut nums: Vec<i32>) -> i32 {
+pub fn min_deletion(nums: Vec<i32>) -> i32 {
     let mut ptr = 0;
     let mut even = true;
     let mut ret = 0;

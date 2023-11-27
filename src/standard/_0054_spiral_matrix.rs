@@ -9,51 +9,88 @@ pub fn spiral_order(matrix: Vec<Vec<i32>>) -> Vec<i32> {
     let mut direction = Direction::GoRight;
     ret.push(matrix[0][0]);
     loop {
-        if margin_check(
-            x,
-            y,
-            &mut left,
-            &mut right,
-            &mut top,
-            &mut bottom,
-            direction,
-        ) {
-            shrink(direction, &mut left, &mut right, &mut top, &mut bottom);
-            turn_side(&mut direction);
-            /// check if cannot turn anymore
-            if margin_check(
-                x,
-                y,
-                &mut left,
-                &mut right,
-                &mut top,
-                &mut bottom,
-                direction,
-            ) {
+        if direction.margin_check(x, y, &mut left, &mut right, &mut top, &mut bottom) {
+            direction.shrink(&mut left, &mut right, &mut top, &mut bottom);
+            direction.turn_side();
+            if direction.margin_check(x, y, &mut left, &mut right, &mut top, &mut bottom) {
                 break;
             }
         }
-        go(&mut x, &mut y, &direction);
+        direction.go(&mut x, &mut y);
         ret.push(matrix[y][x]);
+    }
+    ret
+}
+
+#[derive(Copy, Clone)]
+pub(crate) enum Direction {
+    GoLeft,
+    GoRight,
+    GoUp,
+    GoDown,
+}
+
+impl Direction {
+    pub fn shrink(&self, left: &mut usize, right: &mut usize, top: &mut usize, bottom: &mut usize) {
+        match self {
+            Direction::GoLeft => {
+                *bottom -= 1;
+            }
+            Direction::GoRight => {
+                *top += 1;
+            }
+            Direction::GoUp => {
+                *left += 1;
+            }
+            Direction::GoDown => {
+                *right -= 1;
+            }
+        }
+    }
+
+    pub fn turn_side(&mut self) {
+        *self = match self {
+            Direction::GoLeft => Direction::GoUp,
+            Direction::GoRight => Direction::GoDown,
+            Direction::GoUp => Direction::GoRight,
+            Direction::GoDown => Direction::GoLeft,
+        }
+    }
+
+    pub fn go(&self, x: &mut usize, y: &mut usize) {
+        match self {
+            Direction::GoLeft => {
+                *x -= 1;
+            }
+            Direction::GoRight => {
+                *x += 1;
+            }
+            Direction::GoUp => {
+                *y -= 1;
+            }
+            Direction::GoDown => {
+                *y += 1;
+            }
+        }
     }
 
     /// Returns true if hits the margin
-    fn margin_check(
+    pub fn margin_check(
+        &self,
         x: usize,
         y: usize,
         left: &mut usize,
         right: &mut usize,
         top: &mut usize,
         bottom: &mut usize,
-        direction: Direction,
     ) -> bool {
-        let (act, tar) = match direction {
+        let (act, tar) = match self {
             Direction::GoLeft => (x, *left),
             Direction::GoRight => (x, *right),
             Direction::GoUp => (y, *top),
             Direction::GoDown => (y, *bottom),
         };
-        match direction {
+        match self {
             Direction::GoLeft | Direction::GoUp => {
                 if act > tar {
                     false
@@ -70,65 +107,6 @@ pub fn spiral_order(matrix: Vec<Vec<i32>>) -> Vec<i32> {
             }
         }
     }
-
-    fn go(x: &mut usize, y: &mut usize, direction: &Direction) {
-        match direction {
-            Direction::GoLeft => {
-                *x -= 1;
-            }
-            Direction::GoRight => {
-                *x += 1;
-            }
-            Direction::GoUp => {
-                *y -= 1;
-            }
-            Direction::GoDown => {
-                *y += 1;
-            }
-        }
-    }
-
-    fn turn_side(direction: &mut Direction) {
-        *direction = match direction {
-            Direction::GoLeft => Direction::GoUp,
-            Direction::GoRight => Direction::GoDown,
-            Direction::GoUp => Direction::GoRight,
-            Direction::GoDown => Direction::GoLeft,
-        }
-    }
-
-    fn shrink(
-        direction: Direction,
-        left: &mut usize,
-        right: &mut usize,
-        top: &mut usize,
-        bottom: &mut usize,
-    ) {
-        match direction {
-            Direction::GoLeft => {
-                *bottom -= 1;
-            }
-            Direction::GoRight => {
-                *top += 1;
-            }
-            Direction::GoUp => {
-                *left += 1;
-            }
-            Direction::GoDown => {
-                *right -= 1;
-            }
-        }
-    }
-
-    ret
-}
-
-#[derive(Copy, Clone)]
-enum Direction {
-    GoLeft,
-    GoRight,
-    GoUp,
-    GoDown,
 }
 
 #[cfg(test)]
