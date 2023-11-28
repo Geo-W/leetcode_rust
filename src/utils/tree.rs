@@ -32,7 +32,7 @@ impl TreeNode {
         node_queue.push_back(root.clone());
 
         for value in list[1..].chunks(2) {
-            println!("{:?}", value);
+            // println!("{:?}", value);
             if let Some(cur) = node_queue.pop_front() {
                 if let Some(v) = value[0] {
                     let left_child = Rc::new(RefCell::new(TreeNode::new(v)));
@@ -48,7 +48,7 @@ impl TreeNode {
                         node_queue.push_back(right_child);
                     }
                 }
-                println!("root:{:?}", root);
+                // println!("root:{:?}", root);
             }
         }
 
