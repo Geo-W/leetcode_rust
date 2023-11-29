@@ -13,7 +13,7 @@ pub fn level_order_bottom(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> 
         arr: &mut Vec<i32>,
     ) {
         if !tmp.is_empty() {
-            for i in 0..tmp.len() {
+            for _ in 0..tmp.len() {
                 if let Some(v) = tmp.pop_front().unwrap() {
                     arr.push(v.borrow().val);
                     tmp.push_back(v.borrow_mut().left.take());
