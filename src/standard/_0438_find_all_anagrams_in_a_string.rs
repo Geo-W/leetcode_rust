@@ -15,7 +15,7 @@ pub fn find_anagrams(s: String, p: String) -> Vec<i32> {
         ret.push(0);
     }
 
-    for (idx, i) in s_iter.iter().enumerate().take(s_iter.len() - len) {
+    for (idx, _) in s_iter.iter().enumerate().take(s_iter.len() - len) {
         window[s_iter[idx]] -= 1;
         window[s_iter[idx + len]] += 1;
         if window == target {
