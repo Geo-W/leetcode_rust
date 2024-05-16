@@ -21,7 +21,7 @@ pub fn minimum_rounds(tasks: Vec<i32>) -> i32 {
         }
     }
 
-    map.into_iter().map(|x| x.1).fold(0, |mut acc, x| {
+    map.into_iter().map(|x| x.1).fold(0, |acc, x| {
         return if acc == -1 || calc(x) == -1 {
             -1
         } else {
