@@ -26,23 +26,26 @@ pub fn find_maximum_elegance(mut items: Vec<Vec<i32>>, k: i32) -> i64 {
 
     for idx in (k as usize)..items.len() {
         let (profit, category) = (items[idx as usize][0], items[idx as usize][1]);
-        if duplicate_category.is_empty() {
-            break;
-        }
         if !map.contains_key(&category) {
             //remove the category with duplicate and least price
-            let (&min_category, min_profit) = duplicate_category
+            let (&min_category, min_profit) = match duplicate_category
                 .iter()
                 .map(|x| (x, *map.get(x).unwrap().peek().unwrap()))
                 .min_by_key(|x| x.1 .0)
-                .unwrap();
+            {
+                None => {
+                    break;
+                }
+                Some(v) => (v.0, v.1),
+            };
             profit_now -= min_profit.0 as i64;
+            profit_now += profit as i64;
+
             let heap = map.get_mut(&min_category).unwrap();
             heap.pop().unwrap();
             if heap.len() <= 1 {
                 duplicate_category.remove(&min_category);
             }
-            profit_now += profit as i64;
             map.entry(category)
                 .or_insert_with(BinaryHeap::new)
                 .push(Reverse(profit));
