@@ -1,4 +1,4 @@
-pub fn min_path_cost(mut grid: Vec<Vec<i32>>, move_cost: Vec<Vec<i32>>) -> i32 {
+pub fn min_path_cost(grid: Vec<Vec<i32>>, move_cost: Vec<Vec<i32>>) -> i32 {
     let mut dp = vec![vec![-1; grid[0].len()]; grid.len()];
     dp[0] = grid[0].clone();
     for row_idx in 1..grid.len() {
@@ -10,7 +10,7 @@ pub fn min_path_cost(mut grid: Vec<Vec<i32>>, move_cost: Vec<Vec<i32>>) -> i32 {
                 .map(|(last_row_col_idx, x, xusize)| {
                     (last_row_col_idx, x, &move_cost[xusize][col_idx])
                 })
-                .map(|(last_row_col_idx, x, move_c)| {
+                .map(|(last_row_col_idx, _, move_c)| {
                     dp[row_idx - 1][last_row_col_idx] + grid[row_idx][col_idx] + *move_c
                 })
                 .min()
