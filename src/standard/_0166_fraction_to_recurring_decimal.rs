@@ -1,14 +1,20 @@
-use std::collections::HashMap;
-
-pub fn fraction_to_decimal(mut numerator: i32, mut denominator: i32) -> String {
-    let mut map = HashMap::new();
+pub fn fraction_to_decimal(numerator: i32, denominator: i32) -> String {
+    let mut map = std::collections::HashMap::new();
     let mut ret = String::new();
     let mut decimal = String::new();
     let mut repeated = false;
-    let mut idx = 0;
+    let mut decimal_idx = 0;
 
-    if numerator > denominator {
-        ret.push_str(&(numerator % denominator).to_string());
+    if !(numerator > 0 && denominator > 0 || numerator < 0 && denominator < 0) {
+        ret.push('-');
+    }
+    let mut numerator = (numerator as i64).abs();
+    let denominator = (denominator as i64).abs();
+    if numerator == 0 {
+        return "0".to_string();
+    }
+    if numerator.abs() > denominator.abs() {
+        ret.push_str(&(numerator / denominator).to_string());
         if numerator % denominator == 0 {
             return ret;
         }
@@ -16,31 +22,22 @@ pub fn fraction_to_decimal(mut numerator: i32, mut denominator: i32) -> String {
         numerator = numerator % denominator;
     } else {
         ret.push_str("0.");
-    }
+    };
 
     loop {
-        dbg!(numerator);
+        if map.contains_key(&numerator) {
+            decimal_idx = *map.get(&numerator).unwrap();
+            repeated = true;
+            break;
+        }
+        map.insert(numerator, decimal.len());
         numerator *= 10;
         while numerator < denominator {
             numerator *= 10;
-            if map.contains_key(&(numerator % denominator)) {
-                println!("got 2");
-                repeated = true;
-                break;
-            }
             decimal.push('0');
             map.insert(0, decimal.len());
-            idx += 1;
-        }
-        if map.contains_key(&(numerator % denominator)) {
-            repeated = true;
-            decimal.push_str(&(numerator / denominator).to_string());
-            println!("--- got at idx {}, value:{:?}", numerator % denominator, map.get(&(numerator % denominator)));
-            break;
         }
         decimal.push_str(&(numerator / denominator).to_string());
-        map.insert(numerator % denominator, decimal.len());
-        idx += 1;
         numerator = numerator % denominator;
         if numerator == 0 {
             break;
@@ -49,13 +46,11 @@ pub fn fraction_to_decimal(mut numerator: i32, mut denominator: i32) -> String {
     if !repeated {
         ret.push_str(&decimal);
     } else {
+        ret.push_str(&decimal[0..decimal_idx]);
         ret.push('(');
-        ret.push_str(&decimal);
+        ret.push_str(&decimal[decimal_idx..decimal.len()]);
         ret.push(')');
     }
-
-    dbg!(map, decimal, repeated, &ret);
-
     ret
 }
 
@@ -81,5 +76,23 @@ mod tests {
     #[test]
     fn d() {
         assert_eq!(fraction_to_decimal(5, 5168), "0.0009(674922600619195046439628482972136222910216718266253869969040247678018575851393188854489164086687306501547987616099071207430340557275541795665634)".to_string());
+    }
+
+    #[test]
+    fn e() {
+        assert_eq!(fraction_to_decimal(0, 3), "0".to_string());
+    }
+
+    #[test]
+    fn f() {
+        assert_eq!(fraction_to_decimal(-50, 8), "-6.25".to_string());
+    }
+
+    #[test]
+    fn g() {
+        assert_eq!(
+            fraction_to_decimal(-1, -2147483648),
+            "0.0000000004656612873077392578125".to_string()
+        );
     }
 }
