@@ -6,7 +6,7 @@ pub fn gray_code(n: i32) -> Vec<i32> {
         if ret.len() == 2_usize.pow(n as u32) {
             return true;
         }
-        let mut last = *ret.last().unwrap();
+        let last = *ret.last().unwrap();
         let first = *ret.first().unwrap();
         let mut all_false = true;
         for i in 0..n {
@@ -37,7 +37,7 @@ pub fn gray_code(n: i32) -> Vec<i32> {
 }
 
 fn check_contains(n: i32, i: i32) -> bool {
-    let mut ret = 1;
+    let ret = 1;
     for tmp in 0..n {
         if i == ret << tmp {
             return true;

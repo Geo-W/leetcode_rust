@@ -1,5 +1,3 @@
-use std::collections::{HashMap, HashSet};
-
 pub fn solve_sudoku(board: &mut Vec<Vec<char>>) {
     let mut row_map = [[false; 9]; 9];
     let mut col_map = [[false; 9]; 9];

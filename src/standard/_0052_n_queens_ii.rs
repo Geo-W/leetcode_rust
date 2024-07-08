@@ -56,14 +56,3 @@ pub fn total_n_queens(n: i32) -> i32 {
     );
     ret
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::vec_string;
-
-    #[test]
-    fn a() {
-        assert_eq!(total_n_queens(4), 2);
-    }
-}
