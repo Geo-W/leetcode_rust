@@ -2,12 +2,12 @@ pub fn find_intersection_values(nums1: Vec<i32>, nums2: Vec<i32>) -> Vec<i32> {
     vec![
         nums1
             .iter()
-            .map(|x| if { nums2.contains(x) } { 1 } else { 0 })
+            .map(|x| if nums2.contains(x) { 1 } else { 0 })
             .reduce(|acc, x| acc + x)
             .unwrap(),
         nums2
             .iter()
-            .map(|x| if { nums1.contains(x) } { 1 } else { 0 })
+            .map(|x| if nums1.contains(x) { 1 } else { 0 })
             .reduce(|acc, x| acc + x)
             .unwrap(),
     ]

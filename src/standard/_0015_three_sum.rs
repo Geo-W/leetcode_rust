@@ -27,18 +27,16 @@ pub fn three_sum(mut nums: Vec<i32>) -> Vec<Vec<i32>> {
             // if sum > 0, move the right pointer; also check if it is equal to last calculated element.
             if tmp > 0 || last_right == nums[idx_3] {
                 last_right = nums[idx_3];
-                idx_3 -=1;
+                idx_3 -= 1;
                 continue;
             }
             if tmp < 0 || last_left == nums[idx_2] {
                 last_left = nums[idx_2];
-                idx_2 +=1;
+                idx_2 += 1;
                 continue;
             }
             if tmp == 0 {
-                ret.push(
-                    vec![nums[idx], nums[idx_2], nums[idx_3]]
-                );
+                ret.push(vec![nums[idx], nums[idx_2], nums[idx_3]]);
                 last_left = nums[idx_2];
                 idx_2 += 1;
             }
