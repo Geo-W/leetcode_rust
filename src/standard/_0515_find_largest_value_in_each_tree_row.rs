@@ -7,9 +7,12 @@ use std::rc::Rc;
 pub fn largest_values(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
     let mut deque = VecDeque::new();
     let mut ret = vec![];
+    if root.is_none() {
+        return ret;
+    }
     deque.push_back(root.unwrap());
     while !deque.is_empty() {
-        let mut tmp = 0;
+        let mut tmp = i32::MIN;
         for _ in 0..deque.len() {
             let rc = deque.pop_front().unwrap();
             let node = rc.borrow();
